@@ -4,7 +4,7 @@
 
 ## Mappa 1:1
 
-| # | Riferimento | Logica nel codice del riferimento | Prestitonesto (`index.html`) |
+| # | Riferimento | Logica nel codice del riferimento | Prestitonesto (`lungo/index.html`) |
 |---|---|---|---|
 | 1 | Modal "Dove ti trovi?", CAP, "verifica se la tua zona è coperta" | `resolve_cap.php` restituisce partner, redirect, footer e privacy dinamici: **il CAP sceglie a chi va il lead** | Modal "Dove abiti?", stessa meccanica. Oggi accetta ogni CAP a 5 cifre |
 | 2 | Situazione lavorativa: indeterminato / determinato / pensionato | determinato → blocco | "Che tipo di reddito hai?", determinato → uscita spiegata |

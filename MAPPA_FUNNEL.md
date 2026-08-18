@@ -1,6 +1,6 @@
 # Mappa delle diramazioni, funnel Cessione del Quinto
 
-Documento di validazione per il buyer. Descrive **ogni percorso, ogni uscita e ogni regola** del prototipo `index.html`, così che si possa verificare la logica senza fare cento prove a mano.
+Documento di validazione per il buyer. Descrive **ogni percorso, ogni uscita e ogni regola** del prototipo lungo `lungo/index.html` (per il corto vedi `MAPPA_CORTO.md`), così che si possa verificare la logica senza fare cento prove a mano.
 
 Ogni soglia citata qui è un parametro in testa al file (`CFG`) e si cambia in un punto solo.
 
