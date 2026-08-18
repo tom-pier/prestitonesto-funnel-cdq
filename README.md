@@ -2,7 +2,7 @@
 
 Prototipo funzionante del funnel di qualificazione lead. File unico `index.html`, nessuna dipendenza, nessun invio reale di dati (il lead finisce nella console del browser).
 
-- **Demo:** vedi GitHub Pages del repository
+- **Demo online:** https://tom-pier.github.io/prestitonesto-funnel-cdq/
 - **Mappa delle diramazioni, regole ed uscite:** [`MAPPA_FUNNEL.md`](MAPPA_FUNNEL.md)
 - **Note di ricostruzione rispetto al riferimento:** [`RICOSTRUZIONE.md`](RICOSTRUZIONE.md)
 
