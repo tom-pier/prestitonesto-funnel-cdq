@@ -58,11 +58,11 @@ flowchart TD
   M1 -->|fino a 15| X8[/USCITA: azienda sotto soglia/]
 
   S6[6 · Reddito netto + cessione in corso?] -->|reddito < 700| X9[/USCITA: reddito basso/]
-  S6 -->|cessione in corso troppo recente, se MIN_YEARS > 0| X10[/USCITA: rinnovo prematuro/]
+  S6 -->|cessione in corso troppo recente, solo se MIN_YEARS attivo| X10[/USCITA: rinnovo prematuro/]
   S6 -->|ok| S7[7 · Nascita: nazione, comune, sesso, data]
 
-  S7 -->|età < 18| X11[/USCITA: minorenne/]
-  S7 -->|età > 81| X12[/USCITA: età massima/]
+  S7 -->|età sotto i 18| X11[/USCITA: minorenne/]
+  S7 -->|età oltre 81| X12[/USCITA: età massima/]
   S7 -->|ok| S8[8 · Nome, cognome, cellulare, email, privacy]
 
   S8 --> M2{{modal: riscrivi il cellulare}}
