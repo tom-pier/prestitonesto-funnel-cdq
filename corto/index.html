@@ -35,7 +35,7 @@ section.alt{margin-top:34px;padding:34px 0;background:#fff;border-top:1px solid 
 section.alt .wrap{padding:0 18px}
 .eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--onesto);margin-bottom:8px}
 /* riquadro rata */
-.rata{background:#fff;border:1.5px solid var(--sabbia);border-radius:var(--r);padding:16px 18px;margin:8px 0 6px}
+.rata{background:#fff;border:1.5px solid var(--sabbia);border-radius:var(--r);padding:16px 18px;margin:18px 0 6px}
 .rata .cap{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:#5b615d;margin-bottom:10px}
 .rata .cap b{color:var(--notte);font-weight:600}
 .rata .g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px 10px}
@@ -133,6 +133,15 @@ footer hr{border:0;border-top:1px solid var(--sabbia);margin-bottom:14px}
   <h1>La cessione del quinto, spiegata prima di firmare.</h1>
   <p class="lead">Riservata a pensionati, dipendenti pubblici e privati a tempo indeterminato. Rispondi a tre domande, ti diciamo se rientri. Poi ti chiama una persona sola, con i numeri veri.</p>
 
+  <a class="btn p" href="#quiz" id="heroCta" onclick="track('hero_cta_click')">Verifica se rientri</a>
+  <p class="help center" id="heroHelp">Tre domande, nessun documento.</p>
+
+  <!-- ===================== QUIZ ===================== -->
+  <div class="card" id="quiz">
+    <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i><span>1/4</span></div>
+    <div id="stage"></div>
+  </div>
+
   <div class="rata" id="rata">
     <div class="cap"><b>Esempio rappresentativo</b><span id="rataValid"></span></div>
     <div class="g">
@@ -145,15 +154,6 @@ footer hr{border:0;border-top:1px solid var(--sabbia);margin-bottom:14px}
     </div>
     <p class="disc">Messaggio pubblicitario con finalità promozionale. Salvo approvazione di [istituto erogante]. Condizioni complete nelle Informazioni Europee di Base sul Credito ai Consumatori, presso [soggetto].</p>
     <span class="ph-note" id="phNote">Valori segnaposto: in attesa dell'esempio rappresentativo ufficiale del partner.</span>
-  </div>
-
-  <a class="btn p" href="#quiz" id="heroCta" onclick="track('hero_cta_click')">Verifica se rientri</a>
-  <p class="help center" id="heroHelp">Tre domande, nessun documento.</p>
-
-  <!-- ===================== QUIZ ===================== -->
-  <div class="card" id="quiz">
-    <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i><span>1/4</span></div>
-    <div id="stage"></div>
   </div>
 </div>
 
@@ -385,13 +385,21 @@ function savePersonal(){
   if(!p){miss.push('il consenso privacy');}
   if(miss.length) return fail('e4',miss,ids);
   S.nome=n;S.tel=t;S.email=m;S.privacy=p;S.marketing=document.getElementById('mkt').checked;
-  const pretty=t.replace(/(\d{3})(\d{3})(\d+)/,'$1 $2 $3');
   modal(`<div class="center"><div class="circle">📞</div>
-    <h2>Ti chiamiamo a questo numero</h2>
-    <p class="lead tight" style="margin-top:8px;font-size:22px;font-weight:600;color:var(--notte);font-variant-numeric:tabular-nums">${pretty}</p>
-    <p class="help">È il numero che il consulente chiamerà. È giusto?</p>
-    <button class="btn p" onclick="track('phone_confirm',{ok:true});closeModal();go4submit()">Sì, è giusto</button>
+    <h2>Conferma il cellulare</h2>
+    <p class="lead tight" style="margin-top:8px">È il numero che ${CFG.CONSULENTE} chiamerà. Riscrivilo, così evitiamo un errore di battitura.</p>
+    <input class="in" id="tel2" type="tel" inputmode="tel" placeholder="Numero di cellulare" autocomplete="off" style="text-align:center;font-size:20px">
+    <p class="errmsg" id="e5"></p>
+    <button class="btn p" onclick="confirmPhone()">Conferma</button>
     <button class="back" onclick="track('phone_confirm',{ok:false});closeModal();document.getElementById('tel').focus()">correggi il numero</button></div>`);
+  setTimeout(()=>document.getElementById('tel2').focus(),80);
+}
+function confirmPhone(){
+  const t2=normPhone(document.getElementById('tel2').value);
+  const e=document.getElementById('e5');
+  if(!t2){e.textContent='Per continuare manca: il numero di cellulare, riscritto.';e.classList.add('show');return;}
+  if(t2!==S.tel){e.textContent='Il numero non corrisponde a quello inserito prima ('+S.tel+'). Correggi qui, oppure torna indietro e correggi quello.';e.classList.add('show');return;}
+  track('phone_confirm',{ok:true}); closeModal(); go4submit();
 }
 async function submitLead(){
   const payload=Object.assign({},S,{cp,utm:Object.fromEntries([...qs].filter(([k])=>k.startsWith('utm_')||k==='fbclid')),request_id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),ts:new Date().toISOString(),landing:location.href});

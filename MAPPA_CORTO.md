@@ -20,7 +20,7 @@ Documento di validazione per il buyer. Descrive ogni percorso, ogni uscita e ogn
 
 ```mermaid
 flowchart TD
-  LP[Landing: hero + riquadro rata + CTA] --> S1
+  LP[Landing: hero + CTA, quiz, riquadro rata sotto] --> S1
   S1{1. Requisito} -->|Pensione| S2A{2a. Anno di nascita}
   S1 -->|Dipendente pubblico| S3
   S1 -->|Dipendente privato T.I.| S2B{2b. Azienda più di 15 dip.?}
@@ -32,8 +32,8 @@ flowchart TD
   S2B -->|No| X3[S3 uscita: azienda piccola]
   S3{3. Cessione in corso?} -->|No / Sì meno di 2 anni / Sì più di 2 anni / Non ricordo| S4
   S3 -.->|se CQS_IN_CORSO_BLOCCA e risposta diversa da No| X4[S4 uscita: rinnovi non gestiti]
-  S4[4. Nome e cognome, cellulare, email opz., privacy] --> PC{Conferma numero}
-  PC -->|Sì, è giusto| TY[Thank-you]
+  S4[4. Nome e cognome, cellulare, email opz., privacy] --> PC{Riscrivi il cellulare}
+  PC -->|Coincide| TY[Thank-you]
   PC -->|Correggi| S4
   classDef out fill:#D8D0BE,stroke:#07382B,color:#07382B;
   class X1,X2,X3,X4 out;
@@ -83,7 +83,7 @@ Ogni uscita chiude con: *Preferiamo dirtelo adesso, prima di chiederti il numero
 
 Più mancanze insieme: *Per continuare manca: nome e cognome, il numero di cellulare e il consenso privacy.* Il primo campo mancante prende il focus.
 
-Conferma numero: modal con il numero formattato, "Sì, è giusto" → invio; "correggi il numero" → torna al campo.
+Conferma numero (come nel lungo): modal in cui il numero va **riscritto**. Vuoto → *Per continuare manca: il numero di cellulare, riscritto.* Diverso → *Il numero non corrisponde a quello inserito prima (…). Correggi qui, oppure torna indietro e correggi quello.* Uguale → invio. "correggi il numero" → torna al campo.
 
 ## Thank-you
 
@@ -106,7 +106,7 @@ Conferma numero: modal con il numero formattato, "Sì, è giusto" → invio; "co
 | T7 | Privato → No | S3 |
 | T8 | Step 4 vuoto → Fatti richiamare | "manca: nome e cognome, il numero di cellulare e il consenso privacy" |
 | T9 | Cellulare "12345" | "un numero di cellulare valido (inizia per 3, 9-10 cifre)" |
-| T10 | Modal numero → correggi | torna al campo cellulare |
+| T10 | Modal numero: vuoto / diverso / uguale | errore specifico / errore "non corrisponde" / invio |
 | T11 | Indietro da step 3 | torna a 2a (pensione), 2b (privato), 1 (pubblico) |
 | T12 | Mobile: scroll sotto il quiz | barra "Verifica se rientri" compare; sparisce su quiz, uscita e TY |
 
