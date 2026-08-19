@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cessione del quinto (v2, verifica finale) - prestitonesto</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --notte:#07382B; --onesto:#0E6B4F; --chiaro:#3FA37B; --ambra:#F4B740;
+  --avorio:#F6F1E7; --inchiostro:#1A1D1B; --sabbia:#D8D0BE; --avviso:#B3402F;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--avorio);color:var(--inchiostro);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:560px;margin:0 auto;padding:22px 18px 60px}
+header{display:flex;justify-content:center;padding:14px 0 6px}
+.mark{font-family:Poppins,sans-serif;font-weight:600;font-size:26px;letter-spacing:.01em;color:var(--notte);text-decoration:none;display:inline-flex;align-items:baseline}
+.mark .o{display:inline-block;width:.78em;height:.78em;background:var(--ambra);border-radius:50%;margin:0 .04em;transform:translateY(.02em);position:relative}
+.mark .o::after{content:"";position:absolute;right:.12em;top:.3em;width:.22em;height:.12em;border-right:.06em solid var(--notte);border-bottom:.06em solid var(--notte);transform:rotate(45deg);opacity:.85}
+.progress{display:flex;align-items:center;gap:12px;margin:18px 0 26px}
+.bar{flex:1;height:6px;background:var(--sabbia);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--onesto);border-radius:6px;transition:width .35s ease}
+.step-n{font-variant-numeric:tabular-nums;font-size:14px;color:#5b615d;min-width:32px;text-align:right}
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:600;color:var(--notte);line-height:1.15;letter-spacing:-.01em}
+h1{font-size:30px;margin-bottom:8px}
+h2{font-size:26px;margin-bottom:6px}
+.lead{color:#3d443f;font-size:16px;margin-bottom:22px}
+.lead.tight{margin-bottom:14px}
+.opts{display:grid;gap:10px}
+.opt{width:100%;text-align:left;background:#fff;border:1.5px solid var(--sabbia);border-radius:var(--r);padding:16px 18px;font:inherit;font-size:18px;font-weight:500;color:var(--inchiostro);cursor:pointer;transition:border-color .15s,background .15s}
+.opt small{display:block;font-size:14px;font-weight:400;color:#5b615d;margin-top:2px}
+.opt:hover{border-color:var(--onesto)}
+.opt.sel{border-color:var(--onesto);background:#eef6f2}
+.opt.sel::after{content:"";float:right;width:10px;height:10px;border-radius:50%;background:var(--onesto);margin-top:9px}
+label.f{display:block;font-size:14px;font-weight:600;color:var(--notte);margin:14px 0 6px}
+label.f:first-child{margin-top:0}
+.in{width:100%;background:#fff;border:1.5px solid var(--sabbia);border-radius:var(--r);padding:15px 16px;font:inherit;font-size:18px;color:var(--inchiostro);outline:none;font-variant-numeric:tabular-nums}
+.in:focus{border-color:var(--onesto);box-shadow:0 0 0 3px rgba(14,107,79,.12)}
+.in.err{border-color:var(--avviso)}
+.in::placeholder{color:#9a9c98}
+.pre{position:relative}
+.pre .in{padding-left:38px}
+.pre span{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#5b615d;font-weight:500}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:10px}
+select.in{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2307382B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center}
+.help{font-size:13.5px;color:#5b615d;margin-top:6px}
+.errmsg{display:none;font-size:14.5px;color:var(--avviso);margin-top:12px;font-weight:500;line-height:1.4}
+.errmsg.show{display:block}
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;border:0;border-radius:999px;padding:17px 22px;font:inherit;font-size:18px;font-weight:600;cursor:pointer;transition:transform .05s,opacity .15s;margin-top:22px}
+.btn:active{transform:translateY(1px)}
+.btn.p{background:var(--ambra);color:var(--notte)}
+.btn.p:disabled{background:var(--sabbia);color:#8a8f8b;cursor:not-allowed}
+.btn.s{background:transparent;color:var(--onesto);border:1.5px solid var(--onesto);margin-top:10px}
+.back{background:none;border:0;color:#5b615d;font:inherit;font-size:14px;cursor:pointer;margin-top:18px;padding:6px 0;text-decoration:underline;text-underline-offset:3px}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:#3d443f;margin-top:16px;cursor:pointer}
+.check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--onesto)}
+.note{background:#fff;border:1.5px solid var(--sabbia);border-radius:var(--r);padding:14px 16px;font-size:14.5px;color:#3d443f;margin-top:16px}
+.note b{color:var(--notte)}
+.rata{background:#fff;border:1.5px solid var(--sabbia);border-radius:var(--r);padding:16px 18px;margin:8px 0 6px;display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.rata div{font-size:13px;color:#5b615d}
+.rata b{display:block;font-size:20px;color:var(--notte);font-variant-numeric:tabular-nums;font-weight:600;margin-top:2px}
+.disc{font-size:12px;color:#5b615d;line-height:1.45;margin-top:10px}
+/* modal */
+.ov{position:fixed;inset:0;background:rgba(7,56,43,.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+.ov.show{display:flex}
+.md{background:var(--avorio);border-radius:20px;padding:28px 24px;max-width:440px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.md h2{font-size:24px}
+.md .circle{width:56px;height:56px;border-radius:50%;background:var(--ambra);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;color:var(--notte);font-family:Fraunces,serif;font-size:28px;font-weight:600}
+.md .circle.g{background:var(--onesto);color:#fff}
+.center{text-align:center}
+.hide{display:none!important}
+.exit .circle{background:var(--sabbia);color:var(--notte)}
+footer{max-width:560px;margin:40px auto 0;padding:0 18px 40px;font-size:12px;color:#5b615d;line-height:1.5}
+footer hr{border:0;border-top:1px solid var(--sabbia);margin-bottom:14px}
+.load{display:flex;flex-direction:column;align-items:center;gap:20px;padding:40px 0}
+.spin{width:44px;height:44px;border-radius:50%;border:4px solid var(--sabbia);border-top-color:var(--onesto);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.summary{display:grid;gap:8px;margin-top:6px}
+.summary div{display:flex;justify-content:space-between;gap:12px;font-size:15px;border-bottom:1px solid var(--sabbia);padding:8px 0}
+.summary div span:last-child{font-weight:600;color:var(--notte);text-align:right}
+@media (min-width:600px){h1{font-size:34px}h2{font-size:29px}}
+</style>
+</head>
+<body>
+
+<!-- ===================== GATE CAP (step 1) ===================== -->
+<div class="ov show" id="capOv">
+  <div class="md">
+    <div class="center" style="margin-bottom:6px"><span class="mark">prestit<span class="o"></span>nesto</span></div>
+    <h2 class="center" style="margin-top:14px">Dove abiti?</h2>
+    <p class="lead center tight">Il CAP ci serve per capire se nella tua zona c'è un consulente che può seguirti.</p>
+    <input class="in center" id="capIn" inputmode="numeric" maxlength="5" placeholder="00000" autocomplete="postal-code" style="text-align:center;letter-spacing:.2em;font-size:22px">
+    <p class="errmsg" id="capErr">Inserisci un CAP di 5 cifre.</p>
+    <p class="help" id="capOk" style="display:none;color:var(--onesto)"></p>
+    <button class="btn p" id="capBtn" disabled>Continua</button>
+    <p class="help center" style="margin-top:14px">Nessun documento, nessuna traccia in banca dati.<br>Solo domande.</p>
+  </div>
+</div>
+
+<!-- ===================== QUIZ ===================== -->
+<div class="wrap" id="app">
+  <header><a class="mark" href="#">prestit<span class="o"></span>nesto</a></header>
+  <div class="progress" id="prog"><div class="bar"><i id="barFill"></i></div><span class="step-n" id="stepN">1/9</span></div>
+  <div id="stage"></div>
+</div>
+
+<!-- ===================== MODAL generica (uscita / dipendenti / conferma numero) ===================== -->
+<div class="ov" id="mOv"><div class="md" id="mBox"></div></div>
+
+<footer>
+  <hr>
+  <p><b>Messaggio pubblicitario con finalità promozionale.</b> [Ragione sociale], [Sede], P.IVA [X], iscritta all'OAM al n. [X] in qualità di [agente in attività finanziaria / mediatore creditizio] per conto di [Istituto erogante]. La concessione del finanziamento è soggetta alla valutazione del merito creditizio da parte dell'istituto erogante. Per le condizioni contrattuali ed economiche fare riferimento alle Informazioni Europee di Base sul Credito ai Consumatori disponibili presso [link].</p>
+  <p style="margin-top:8px"><span id="dynFooter"></span></p>
+  <p style="margin-top:8px"><a href="#" style="color:inherit">Privacy</a> · <a href="#" style="color:inherit">Cookie</a></p>
+</footer>
+
+<script>
+/* =====================================================================
+   CONFIG, regole del partner. VERSIONE 2: nessuna uscita durante il quiz,
+   verifica finale con loading prima dei dati personali. Ogni soglia è un parametro, come nel
+   funnel di riferimento. [DA CONFERMARE col partner prima del go-live]
+   ===================================================================== */
+const CFG = {
+  MIN_INCOME: 700,            // reddito netto minimo €/mese
+  MAX_AGE: 81,                // età massima al momento della richiesta, per tutti (oltre 81 compiuti non validi)
+  MIN_EMPLOYEES: 16,          // soglia dipendenti azienda privata (rif. usa 16; screenshot mostra 9)
+  MAX_HIRING_YEAR: new Date().getFullYear() - 1, // anzianità minima ≈ 1 anno
+  MIN_YEARS_EXISTING_CQS: 0,  // 0 = non blocca; N = blocca se cessione in corso da < N anni; 100 = blocca sempre
+  MAIL_REQUIRED: false,
+  CALLBACK_SLA: "entro 2 ore lavorative", // promessa in TY, va mantenuta
+  CONSULENTE: "un consulente di [Soggetto]",   // nome e cognome quando disponibile
+  ENDPOINT: null,             // URL POST lead; null = simula
+  ENDPOINT_OUT: null,         // URL POST profili non qualificati (senza dati identificativi); null = console
+  VERIFY_MS: 3000             // durata del loading di verifica finale
+};
+
+/* ------------------ stato ------------------ */
+const S = {
+  cap:"", situazione:"", datore:"", importo:"", azienda:"", ente:"", annoAssunzione:"",
+  dipendenti:"", tipoPensione:[], reddito:0, cqsInCorso:null, cqsMese:"", cqsAnno:"",
+  nazione:"Italia", comune:"", sesso:"", nascita:"", eta:null, motivi:[], nome:"", cognome:"", email:"", tel:"", privacy:false, marketing:false
+};
+const TOTAL = 9;
+let cur = 2; // il gate CAP è lo step 1
+const stage = document.getElementById('stage');
+window.dataLayer = window.dataLayer || [];
+const track = (ev, d={}) => { window.dataLayer.push(Object.assign({event:ev, step:cur}, d)); };
+const cp = new URLSearchParams(location.search).get('fb') || new URLSearchParams(location.search).get('cp') || 'none';
+window.dataLayer.push({cp});
+
+/* ------------------ helpers ------------------ */
+function setProg(n){ document.getElementById('barFill').style.width = (n/TOTAL*100)+'%'; document.getElementById('stepN').textContent = n+'/'+TOTAL; }
+function view(html){ stage.innerHTML = html; window.scrollTo({top:0,behavior:'smooth'}); }
+function opt(label, sub, onclick, cls=''){ return `<button class="opt ${cls}" onclick="${onclick}">${label}${sub?`<small>${sub}</small>`:''}</button>`; }
+function modal(html){ document.getElementById('mBox').innerHTML = html; document.getElementById('mOv').classList.add('show'); }
+function closeModal(){ document.getElementById('mOv').classList.remove('show'); }
+function normPhone(p){ let c=p.replace(/[\s\-\(\)\.]/g,''); if(c.startsWith('+39')) c=c.slice(3); else if(c.startsWith('0039')) c=c.slice(4); return c; }
+
+/* USCITA (v2): arriva solo dalla verifica finale, dopo tutte le domande e prima dei dati personali.
+   Un solo motivo mostrato (il primo in ordine di flusso), tutti tracciati. Nessun pulsante. */
+function exitFlow(reasons){
+  const r = reasons[0];
+  track('quiz_out', {reason:r.id, reasons:reasons.map(x=>x.id)});
+  storeDisqualified(reasons.map(x=>x.id));
+  modal(`<div class="exit">
+    <div class="circle" style="margin:0 auto 14px">i</div>
+    <h2 class="center">Dalle tue risposte, i requisiti per la cessione del quinto non risultano soddisfatti.</h2>
+    <p class="lead tight" style="margin-top:12px"><b>${r.title}</b><br>${r.body}</p>
+    <p class="help">Te lo diciamo ora, prima di chiederti i dati: così ti evitiamo documenti, richieste e attese che porterebbero alla stessa risposta.</p>
+  </div>`);
+}
+
+/* PROFILO NON QUALIFICATO: si salva senza dati identificativi (niente nome, telefono, email, data di nascita, comune).
+   Serve a leggere chi arriva e perché esce. [VERIFICARE con il legale: informativa/cookie per il tracciamento anonimo] */
+async function storeDisqualified(reasons){
+  const p={type:'non_qualificato',request_id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),ts:new Date().toISOString(),cp,landing:location.href,
+    cap:S.cap,situazione:S.situazione,datore:S.datore,importo:S.importo,azienda:S.azienda,ente:S.ente,annoAssunzione:S.annoAssunzione,dipendenti:S.dipendenti,
+    tipoPensione:S.tipoPensione,reddito:S.reddito,cqsInCorso:S.cqsInCorso,cqsMese:S.cqsMese,cqsAnno:S.cqsAnno,sesso:S.sesso,eta:S.eta,nazione:S.nazione,motivi:reasons};
+  console.log('NON_QUALIFICATO',p);
+  if(!CFG.ENDPOINT_OUT) return;
+  try{ await fetch(CFG.ENDPOINT_OUT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p),keepalive:true}); }catch(e){ console.error(e); }
+}
+
+/* REGOLE, valutate tutte insieme alla fine, in ordine di flusso. Stesse soglie e stessi testi del lungo v1. */
+function evaluate(){
+  const R=[]; const add=(id,title,body)=>R.push({id,title,body});
+  if(S.situazione==='determinato') add('determinato','Con un contratto a termine il quinto non si può fare.','La rata viene trattenuta dallo stipendio per tutta la durata del piano: serve un contratto senza scadenza. Se in futuro passi a tempo indeterminato, torna pure.');
+  if(S.situazione!=='pensionato'){
+    if(S.datore==='piccola'||S.dipendenti==='<16') add('piccola_azienda',`Sotto i ${CFG.MIN_EMPLOYEES} dipendenti gli istituti di solito non erogano.`,'La cessione del quinto si appoggia al datore di lavoro, che deve garantire la trattenuta: le aziende piccole non vengono accettate dalla maggior parte delle finanziarie.');
+    if(S.datore==='famiglia') add('famiglia','Per colf e badanti il quinto non è previsto.','Il datore di lavoro dev\'essere un\'azienda o un ente. Con una famiglia come datore la trattenuta non è possibile.');
+    if(S.datore==='autonomo') add('autonomo','Con la partita IVA il quinto non si può fare.','Non c\'è uno stipendio da cui trattenere la rata. Esistono altre forme di finanziamento, ma non sono quelle di cui ci occupiamo qui.');
+    if((S.datore==='grande'||S.datore==='piccola') && S.annoAssunzione>CFG.MAX_HIRING_YEAR) add('anzianita','Sei stato assunto da troppo poco.','Gli istituti chiedono un minimo di anzianità in azienda prima di valutare una cessione. Riprova più avanti: le regole non cambiano, il tempo sì.');
+  } else {
+    if(S.tipoPensione[0]==='inabilita') add('pensione_inabilita','Sulla pensione di invalidità o inabilità il quinto non si può fare.','La cessione si può fare sulle pensioni di vecchiaia, di anzianità e ai superstiti. Invalidità civile, assegno ordinario e accompagnamento non rientrano.');
+    if(S.tipoPensione[0]==='altro') add('pensione_altro','Su questo tipo di pensione il quinto non si può fare.','La cessione si può fare sulle pensioni di vecchiaia, di anzianità e ai superstiti. Pensione sociale e rendite INAIL non rientrano.');
+  }
+  if(S.reddito<CFG.MIN_INCOME) add('reddito_basso',`Sotto i ${CFG.MIN_INCOME} € netti al mese la rata non è sostenibile.`,'Un quinto del netto sarebbe una cifra troppo bassa per qualsiasi piano: gli istituti non aprono la pratica. Non dipende da te, è un limite del prodotto.');
+  if(S.cqsInCorso && CFG.MIN_YEARS_EXISTING_CQS>0){
+    if(CFG.MIN_YEARS_EXISTING_CQS===100) add('cqs_in_corso','Con una cessione già attiva non possiamo procedere.','Il partner con cui lavoriamo oggi non gestisce rinnovi.');
+    else if(S.cqsAnno&&S.cqsMese){ const now=new Date(); let y=now.getFullYear()-parseInt(S.cqsAnno); if(now.getMonth()+1<parseInt(S.cqsMese)) y--; if(y<CFG.MIN_YEARS_EXISTING_CQS) add('cqs_recente','La cessione in corso è troppo recente per un rinnovo.',`Per legge il rinnovo è possibile dopo aver pagato almeno due quinti del piano. Con la tua data siamo sotto: riprova tra ${CFG.MIN_YEARS_EXISTING_CQS-y} ann${CFG.MIN_YEARS_EXISTING_CQS-y===1?'o':'i'}.`); }
+  }
+  if(S.eta<18) add('minorenne','Serve la maggiore età.','La richiesta può farla solo chi ha compiuto 18 anni.');
+  if(S.eta>CFG.MAX_AGE) add(S.situazione==='pensionato'?'eta_max_pensionato':'eta_max',`Oltre gli ${CFG.MAX_AGE} anni gli istituti non erogano il quinto${S.situazione==='pensionato'?' sulla pensione':''}.`,'Il limite riguarda l\'età alla fine del piano di rimborso, ed è fissato dagli istituti convenzionati.');
+  return R;
+}
+
+/* VERIFICA FINALE: loading onesto (~3 s), poi esito. Positivo → "Rientri nei requisiti" → dati. Negativo → uscita. */
+function verify(){
+  document.getElementById('prog').classList.add('hide');
+  track('verify_view');
+  const who = S.situazione==='pensionato' ? 'Verifichiamo il tipo di pensione…' : S.datore==='pubblico' ? 'Verifichiamo i requisiti dell\'ente…' : 'Verifichiamo i requisiti del datore di lavoro…';
+  const msgs=['Controlliamo il tipo di reddito…','Confrontiamo età e durata del piano…',who];
+  view(`<div class="load"><div class="spin"></div><p class="lead center" id="vTxt">${msgs[0]}</p><p class="help center">Confrontiamo le tue risposte con i requisiti degli istituti convenzionati.</p></div>`);
+  const step=CFG.VERIFY_MS/3;
+  setTimeout(()=>{const t=document.getElementById('vTxt'); if(t) t.textContent=msgs[1];},step);
+  setTimeout(()=>{const t=document.getElementById('vTxt'); if(t) t.textContent=msgs[2];},step*2);
+  setTimeout(()=>{
+    const R=evaluate(); S.motivi=R.map(x=>x.id);
+    track('verify_result',{ok:R.length===0,reasons:S.motivi});
+    if(R.length) return exitFlow(R);
+    view(`
+      <div class="center"><div style="width:56px;height:56px;border-radius:50%;background:var(--onesto);color:#fff;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:26px">✓</div></div>
+      <h1 class="center">Rientri nei requisiti.</h1>
+      <p class="lead center">In base alle tue risposte, la cessione del quinto è praticabile. I numeri precisi, rata, durata e costo totale, te li dà il consulente al telefono. La valutazione finale spetta all'istituto.</p>
+      <div class="note"><b>Il tuo riepilogo</b>
+        <div class="summary">
+          <div><span>Reddito</span><span>${labelSituazione()}</span></div>
+          <div><span>Cifra indicativa</span><span>${labelImporto()}</span></div>
+          <div><span>Netto mensile</span><span>${S.reddito.toLocaleString('it-IT')} €</span></div>
+          <div><span>Cessione in corso</span><span>${S.cqsInCorso?'Sì':'No'}</span></div>
+        </div></div>
+      <button class="btn p" onclick="go(8)">Continua</button>
+      <p class="help center" style="margin-top:12px">Manca solo dove farti richiamare. Una chiamata sola.</p>`);
+  },CFG.VERIFY_MS);
+}
+
+/* ERRORI SPECIFICI - ogni step dice esattamente cosa manca */
+function clearErr(){ document.querySelectorAll('#stage .in.err, #mBox .in.err').forEach(i=>i.classList.remove('err')); document.querySelectorAll('#stage .errmsg, #mBox .errmsg').forEach(e=>{e.classList.remove('show');}); }
+function fail(errId, missing, fieldIds=[]){
+  clearErr();
+  fieldIds.forEach(id=>{const el=document.getElementById(id); if(el) el.classList.add('err');});
+  const e=document.getElementById(errId);
+  const list = missing.length===1 ? missing[0] : missing.slice(0,-1).join(', ')+' e '+missing[missing.length-1];
+  e.textContent = 'Per continuare manca: '+list+'.';
+  e.classList.add('show');
+  const first=document.getElementById(fieldIds[0]); if(first&&first.focus) first.focus();
+  return false;
+}
+
+/* ------------------ router ------------------ */
+function go(n){ cur = n; document.getElementById('prog').classList.remove('hide'); setProg(n); track('step_view'); STEPS[n](); }
+function back(){ // ordine di ritorno semplificato
+  const prev = {3:2, 4:3, 5:4, 6:5, 7:6, 8:7};
+  let p = prev[cur];
+  if(cur===6 && (S.datore==='famiglia'||S.datore==='autonomo')) p = 4;   // per loro lo step 5 non esiste
+  if(cur===8) p = 7;
+  if(p) go(p);
+}
+
+/* ------------------ STEP 1: CAP (modal) ------------------ */
+(function(){
+  const inp=document.getElementById('capIn'), btn=document.getElementById('capBtn'), err=document.getElementById('capErr'), ok=document.getElementById('capOk');
+  inp.addEventListener('input',()=>{ inp.value=inp.value.replace(/\D/g,'').slice(0,5); const v=inp.value.length===5; btn.disabled=!v; err.classList.remove('show'); ok.style.display=v?'block':'none'; if(v) ok.textContent='CAP '+inp.value+', zona coperta'; });
+  btn.addEventListener('click',()=>{ if(inp.value.length!==5){err.textContent='Per continuare manca: un CAP di 5 cifre.';err.classList.add('show');return;} S.cap=inp.value; track('cap_ok',{cap:S.cap}); document.getElementById('capOv').classList.remove('show'); go(2); });
+  inp.focus();
+})();
+
+/* ------------------ STEPS 2..9 ------------------ */
+const STEPS = {
+
+  /* 2, situazione lavorativa */
+  2(){ view(`
+    <h2>Che tipo di reddito hai?</h2>
+    <p class="lead">La cessione del quinto è riservata a chi ha una pensione o uno stipendio da cui trattenere la rata.</p>
+    <div class="opts">
+      ${opt('Dipendente a tempo indeterminato','',"pick('situazione','indeterminato',3)")}
+      ${opt('Dipendente a tempo determinato','',"pick('situazione','determinato',3)")}
+      ${opt('Pensionato / pensionata','',"pick('situazione','pensionato',4)")}
+    </div>`);
+  },
+
+  /* 3, datore di lavoro */
+  3(){ view(`
+    <h2>Per chi lavori?</h2>
+    <p class="lead">Serve per capire quali istituti possono valutare la pratica.</p>
+    <div class="opts">
+      ${opt('Un\'azienda privata con almeno '+CFG.MIN_EMPLOYEES+' dipendenti','',"pick('datore','grande',4)")}
+      ${opt('Un\'azienda privata più piccola','fino a '+(CFG.MIN_EMPLOYEES-1)+' dipendenti',"pick('datore','piccola',4)")}
+      ${opt('Un ente pubblico o statale','ministero, forze dell\'ordine, scuola, sanità, ente locale',"pick('datore','pubblico',4)")}
+      ${opt('Una famiglia','colf, badante',"pick('datore','famiglia',4)")}
+      ${opt('Lavoro in proprio','partita IVA, libero professionista',"pick('datore','autonomo',4)")}
+    </div>
+    <button class="back" onclick="back()">← indietro</button>`);
+  },
+
+  /* 4, importo */
+  4(){ view(`
+    <h2>Che cifra ti serve?</h2>
+    <p class="lead">Un'idea basta. La cifra esatta la definite al telefono, con i numeri davanti.</p>
+    <div class="opts">
+      ${opt('Fino a 10.000 €','',"pick('importo','10k',5)")}
+      ${opt('Fino a 20.000 €','',"pick('importo','20k',5)")}
+      ${opt('Fino a 30.000 €','',"pick('importo','30k',5)")}
+      ${opt('Oltre 30.000 €','',"pick('importo','30k+',5)")}
+    </div>
+    <button class="back" onclick="back()">← indietro</button>`);
+  },
+
+  /* 5, azienda / ente / tipo pensione (ramificato) */
+  5(){
+    if(S.situazione!=='pensionato' && (S.datore==='famiglia'||S.datore==='autonomo')) return go(6); // niente azienda da chiedere
+    if(S.situazione==='pensionato'){
+      view(`
+      <h2>Che tipo di pensione percepisci?</h2>
+      <p class="lead">Non tutte le pensioni sono cedibili. Scegli quella principale.</p>
+      <div class="opts">
+        ${opt('Pensione di vecchiaia o lavorativa','La pensione ordinaria legata agli anni di lavoro. INPS, ex INPDAP, altre casse.',"pickPens('vecchiaia')")}
+        ${opt('Pensione di reversibilità o ai superstiti','La pensione erogata a seguito del decesso di un familiare.',"pickPens('superstiti')")}
+        ${opt('Pensione di invalidità o inabilità','Invalidità civile, assegno ordinario, accompagnamento.',"pickPens('inabilita')")}
+        ${opt('Altro tipo','Pensione sociale, rendite INAIL, altro.',"pickPens('altro')")}
+      </div>
+      <button class="back" onclick="go(4)">← indietro</button>`);
+      return;
+    }
+    if(S.datore==='pubblico'){
+      view(`
+      <h2>Per quale ente lavori?</h2>
+      <p class="lead">Basta il nome. Il consulente verifica il resto.</p>
+      <label class="f" for="ente">Ente o amministrazione</label>
+      <input class="in" id="ente" placeholder="es. Ministero dell'Istruzione, ASL Roma 1">
+      <label class="f" for="anno">Anno di assunzione</label>
+      <input class="in" id="anno" inputmode="numeric" maxlength="4" placeholder="es. 2012">
+      <p class="errmsg" id="e5"></p>
+      <button class="btn p" onclick="saveEnte()">Continua</button>
+      <button class="back" onclick="back()">← indietro</button>`);
+      return;
+    }
+    view(`
+      <h2>Per quale azienda lavori?</h2>
+      <p class="lead">Basta il nome. Il consulente verifica il resto.</p>
+      <label class="f" for="az">Azienda</label>
+      <input class="in" id="az" placeholder="es. Stellantis">
+      <label class="f" for="anno">Anno di assunzione</label>
+      <input class="in" id="anno" inputmode="numeric" maxlength="4" placeholder="es. 2012">
+      <p class="errmsg" id="e5"></p>
+      <button class="btn p" onclick="saveAzienda()">Continua</button>
+      <button class="back" onclick="back()">← indietro</button>`);
+  },
+
+  /* 6, dati finanziari */
+  6(){ view(`
+    <h2>Quanto prendi al mese, netto?</h2>
+    <p class="lead">Ci serve per capire quale rata è sostenibile: per legge non può superare un quinto del netto.</p>
+    <label class="f" for="redd">${S.situazione==='pensionato'?'Pensione netta mensile':'Stipendio netto mensile'}</label>
+    <div class="pre"><span>€</span><input class="in" id="redd" inputmode="numeric" placeholder="es. 1.450"></div>
+    <label class="f">Hai già una cessione del quinto in corso?</label>
+    <div class="row">
+      ${opt('Sì','',"pickCqs(this,true)")}
+      ${opt('No','',"pickCqs(this,false)")}
+    </div>
+    <div id="cqsDate" class="hide">
+      <label class="f">Da quando, più o meno?</label>
+      <div class="row">
+        <select class="in" id="cqsM"><option value="">Mese</option>${['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'].map((m,i)=>`<option value="${i+1}">${m}</option>`).join('')}</select>
+        <select class="in" id="cqsY"><option value="">Anno</option>${yearOpts(12)}</select>
+      </div>
+      <p class="help">Non lo ricordi? Lascia vuoto: lo verificate al telefono.</p>
+    </div>
+    <p class="errmsg" id="e6b"></p>
+    <button class="btn p" onclick="saveFin()">Continua</button>
+    <button class="back" onclick="back()">← indietro</button>`);
+  },
+
+  /* 7, dati di nascita */
+  7(){ view(`
+    <h2>Quando e dove sei nato?</h2>
+    <p class="lead">Serve per l'età alla fine del piano e per il codice fiscale.</p>
+    <label class="f" for="naz">Nazione di nascita</label>
+    <select class="in" id="naz" onchange="S.nazione=this.value;document.getElementById('comuneWrap').classList.toggle('hide',this.value!=='Italia')"><option>Italia</option><option>Estero</option></select>
+    <div id="comuneWrap">
+      <label class="f" for="com">Comune di nascita</label>
+      <input class="in" id="com" placeholder="es. Urbino">
+    </div>
+    <label class="f">Sesso</label>
+    <div class="row">${opt('Maschio','',"pickSex(this,'M')")}${opt('Femmina','',"pickSex(this,'F')")}</div>
+    <label class="f">Data di nascita</label>
+    <div class="row3">
+      <input class="in" id="bd" inputmode="numeric" maxlength="2" placeholder="GG">
+      <select class="in" id="bm"><option value="">Mese</option>${['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'].map((m,i)=>`<option value="${i+1}">${m}</option>`).join('')}</select>
+      <input class="in" id="by" inputmode="numeric" maxlength="4" placeholder="AAAA">
+    </div>
+    <p class="errmsg" id="e7"></p>
+    <button class="btn p" onclick="saveBirth()">Continua</button>
+    <button class="back" onclick="back()">← indietro</button>`);
+  },
+
+  /* 8, dati personali */
+  8(){ view(`
+    <h2>Dove ti richiamiamo?</h2>
+    <p class="lead">Ti chiama ${CFG.CONSULENTE}, una volta sola, ${CFG.CALLBACK_SLA}. Se non ti interessa, finisce lì.</p>
+    <label class="f" for="nome">Nome</label><input class="in" id="nome" autocomplete="given-name" placeholder="Nome">
+    <label class="f" for="cogn">Cognome</label><input class="in" id="cogn" autocomplete="family-name" placeholder="Cognome">
+    <label class="f" for="tel">Cellulare</label><input class="in" id="tel" type="tel" autocomplete="tel" inputmode="tel" placeholder="es. 333 1234567">
+    <label class="f" for="mail">Email ${CFG.MAIL_REQUIRED?'':'(facoltativa)'}</label><input class="in" id="mail" type="email" autocomplete="email" placeholder="nome@esempio.it">
+    <div class="note">CAP di residenza: <b>${S.cap}</b> · Riepilogo: <b>${riepilogoBreve()}</b></div>
+    <label class="check"><input type="checkbox" id="priv"><span>Ho letto l'<a href="#" style="color:var(--onesto)">informativa privacy</a> e acconsento al trattamento dei dati per essere ricontattato in merito alla mia richiesta.</span></label>
+    <label class="check"><input type="checkbox" id="mkt"><span>Acconsento a ricevere comunicazioni promozionali (facoltativo).</span></label>
+    <p class="errmsg" id="e8"></p>
+    <button class="btn p" onclick="savePersonal()">Fatti richiamare</button>
+    <button class="back" onclick="back()">← indietro</button>`);
+  },
+
+  /* 9, invio + chiusura */
+  9(){
+    document.getElementById('prog').classList.add('hide');
+    view(`<div class="load"><div class="spin"></div><p class="lead center" id="loadTxt">Registriamo la richiesta…</p></div>`);
+    setTimeout(()=>{document.getElementById('loadTxt').textContent='Assegniamo il consulente…';},1500);
+    submitLead().then(()=>{
+      track('lead_submit',{cp});
+      view(`
+        <div class="center"><div class="circle" style="width:56px;height:56px;border-radius:50%;background:var(--onesto);color:#fff;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:26px">✓</div></div>
+        <h1 class="center">Fatto.</h1>
+        <p class="lead center">Ti chiama ${CFG.CONSULENTE} ${CFG.CALLBACK_SLA} al <b>${S.tel}</b>. Una chiamata sola.</p>
+        <div class="note">
+          <b>Il tuo riepilogo</b>
+          <div class="summary">
+            <div><span>Reddito</span><span>${labelSituazione()}</span></div>
+            <div><span>Cifra indicativa</span><span>${labelImporto()}</span></div>
+            <div><span>Cessione in corso</span><span>${S.cqsInCorso?'Sì':'No'}</span></div>
+            <div><span>Netto mensile</span><span>${S.reddito.toLocaleString('it-IT')} €</span></div>
+          </div>
+        </div>
+        <div class="note"><b>Cosa tenere a portata di mano</b><br>Documento d'identità · codice fiscale · ultimo cedolino o certificato di pensione. <span class="help">[VERIFICARE elenco col partner]</span></div>
+        <p class="help center" style="margin-top:22px">Se cambi idea prima della chiamata, rispondi "no grazie" all'SMS che ricevi: non ti richiamiamo.</p>
+      `);
+    });
+  }
+};
+
+/* ------------------ pick / save ------------------ */
+function pick(key,val,next){
+  S[key]=val; track('answer',{q:key,a:val});
+  // v2: nessuna uscita durante il quiz, le regole si valutano tutte alla verifica finale
+  if(next) go(next);
+}
+function pickPens(v){
+  S.tipoPensione=[v]; track('answer',{q:'tipoPensione',a:v});
+  go(6);
+}
+function saveEnte(){
+  const e=document.getElementById('ente').value.trim(), a=parseInt(document.getElementById('anno').value);
+  const miss=[],ids=[]; const Y=new Date().getFullYear();
+  if(e.length<2){miss.push('il nome dell\'ente');ids.push('ente');}
+  if(isNaN(a)){miss.push('l\'anno di assunzione');ids.push('anno');} else if(!(a>=1980&&a<=Y)){miss.push('un anno di assunzione tra 1980 e '+Y);ids.push('anno');}
+  if(miss.length) return fail('e5',miss,ids);
+  S.ente=e;S.annoAssunzione=a; go(6);
+}
+function saveAzienda(){
+  const z=document.getElementById('az').value.trim(), a=parseInt(document.getElementById('anno').value);
+  const miss=[],ids=[]; const Y=new Date().getFullYear();
+  if(z.length<2){miss.push('il nome dell\'azienda');ids.push('az');}
+  if(isNaN(a)){miss.push('l\'anno di assunzione');ids.push('anno');} else if(!(a>=1980&&a<=Y)){miss.push('un anno di assunzione tra 1980 e '+Y);ids.push('anno');}
+  if(miss.length) return fail('e5',miss,ids);
+  S.azienda=z;S.annoAssunzione=a;
+  if(S.datore==='piccola'){ S.dipendenti='<16'; return go(6); }   // già dichiarata piccola, non lo richiediamo
+  // conferma dimensione azienda (come il riferimento), qui non blocca
+  modal(`<div class="center"><div class="circle">?</div>
+    <h2>Quanti dipendenti ha l'azienda?</h2>
+    <p class="lead tight" style="margin-top:8px">Conferma la dimensione, incide sulla valutazione.</p>
+    <div class="opts" style="text-align:left">
+      ${opt('Più di '+(CFG.MIN_EMPLOYEES-1)+' dipendenti','',"S.dipendenti='16+';closeModal();go(6)")}
+      ${opt('Fino a '+(CFG.MIN_EMPLOYEES-1)+' dipendenti','',"S.dipendenti='<16';closeModal();go(6)")}
+    </div></div>`);
+}
+function pickCqs(el,v){ document.querySelectorAll('#stage .row .opt').forEach(o=>o.classList.remove('sel')); el.classList.add('sel'); S.cqsInCorso=v; document.getElementById('cqsDate').classList.toggle('hide',!v); }
+function saveFin(){
+  const r=parseInt(document.getElementById('redd').value.replace(/\D/g,''));
+  const miss=[],ids=[];
+  if(isNaN(r)||r<=0){miss.push(S.situazione==='pensionato'?'la pensione netta mensile':'lo stipendio netto mensile');ids.push('redd');}
+  else if(r>=20000){miss.push('un importo mensile realistico (sotto i 20.000 €)');ids.push('redd');}
+  if(S.cqsInCorso===null){miss.push('la risposta su una cessione in corso (sì o no)');}
+  if(miss.length) return fail('e6b',miss,ids);
+  S.reddito=r; S.cqsMese=document.getElementById('cqsM')?.value||''; S.cqsAnno=document.getElementById('cqsY')?.value||'';
+  track('answer',{q:'reddito',a:r,cqs:S.cqsInCorso});
+  go(7);
+}
+function pickSex(el,v){ document.querySelectorAll('#stage .row .opt').forEach(o=>o.classList.remove('sel')); el.classList.add('sel'); S.sesso=v; }
+function saveBirth(){
+  const d=parseInt(document.getElementById('bd').value), m=parseInt(document.getElementById('bm').value), y=parseInt(document.getElementById('by').value);
+  const com=document.getElementById('com').value.trim();
+  const miss=[],ids=[];
+  if(S.nazione==='Italia'&&com.length<2){miss.push('il comune di nascita');ids.push('com');}
+  if(!S.sesso){miss.push('il sesso');}
+  if(!(d>=1&&d<=31)){miss.push('il giorno di nascita');ids.push('bd');}
+  if(!(m>=1&&m<=12)){miss.push('il mese di nascita');ids.push('bm');}
+  if(!(y>=1920&&y<=2010)){miss.push(isNaN(y)?'l\'anno di nascita':'un anno di nascita valido (4 cifre)');ids.push('by');}
+  if(miss.length) return fail('e7',miss,ids);
+  const bd=new Date(y,m-1,d), now=new Date(); let age=now.getFullYear()-bd.getFullYear(); const mm=now.getMonth()-bd.getMonth(); if(mm<0||(mm===0&&now.getDate()<bd.getDate())) age--;
+  S.comune=com; S.nascita=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  track('answer',{q:'eta',a:age});
+  S.eta=age;
+  verify();
+}
+function savePersonal(){
+  const n=document.getElementById('nome').value.trim(), c=document.getElementById('cogn').value.trim(), t=normPhone(document.getElementById('tel').value), m=document.getElementById('mail').value.trim(), p=document.getElementById('priv').checked;
+  const okTel=/^3\d{8,9}$/.test(t)||/^\d{9,11}$/.test(t);
+  const okMail=!m||/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m);
+  const miss=[],ids=[];
+  if(n.length<2){miss.push('il nome');ids.push('nome');}
+  if(c.length<2){miss.push('il cognome');ids.push('cogn');}
+  if(!t){miss.push('il numero di cellulare');ids.push('tel');} else if(!okTel){miss.push('un numero di cellulare valido (9-11 cifre)');ids.push('tel');}
+  if(CFG.MAIL_REQUIRED&&!m){miss.push('l\'email');ids.push('mail');} else if(!okMail){miss.push('un\'email valida');ids.push('mail');}
+  if(!p){miss.push('il consenso privacy');}
+  if(miss.length) return fail('e8',miss,ids);
+  S.nome=n;S.cognome=c;S.tel=t;S.email=m;S.privacy=p;S.marketing=document.getElementById('mkt').checked;
+  // conferma numero (come il riferimento), è il campo che decide il tasso di contatto
+  modal(`<div class="center"><div class="circle">📞</div>
+    <h2>Conferma il cellulare</h2>
+    <p class="lead tight" style="margin-top:8px">È il numero che il consulente chiamerà. Riscrivilo, così evitiamo un errore di battitura.</p>
+    <input class="in" id="tel2" type="tel" inputmode="tel" placeholder="Numero di cellulare" autocomplete="off" style="text-align:center;font-size:20px">
+    <p class="errmsg" id="e9"></p>
+    <button class="btn p" onclick="confirmPhone()">Conferma</button>
+    <button class="back" onclick="closeModal()">correggi il numero</button></div>`);
+  setTimeout(()=>document.getElementById('tel2').focus(),80);
+}
+function confirmPhone(){
+  const t2=normPhone(document.getElementById('tel2').value);
+  const e=document.getElementById('e9');
+  if(!t2){e.textContent='Per continuare manca: il numero di cellulare, riscritto.';e.classList.add('show');return;}
+  if(t2!==S.tel){e.textContent='Il numero non corrisponde a quello inserito prima ('+S.tel+'). Correggi qui, oppure torna indietro e correggi quello.';e.classList.add('show');return;}
+  closeModal(); go(9);
+}
+async function submitLead(){
+  const payload=Object.assign({},S,{cp,request_id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),ts:new Date().toISOString(),landing:location.href});
+  console.log('LEAD',payload);
+  if(!CFG.ENDPOINT) return new Promise(r=>setTimeout(r,2600));
+  try{ await fetch(CFG.ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); }catch(e){ console.error(e); }
+}
+
+/* ------------------ label helpers ------------------ */
+function yearOpts(n){ const y=new Date().getFullYear(); let s=''; for(let i=0;i<=n;i++) s+=`<option value="${y-i}">${y-i}</option>`; return s; }
+function labelSituazione(){ return {indeterminato:'Dipendente T.I.'+(S.datore==='pubblico'?' pubblico':' privato'),pensionato:'Pensione'}[S.situazione]||S.situazione; }
+function labelImporto(){ return {'10k':'fino a 10.000 €','20k':'fino a 20.000 €','30k':'fino a 30.000 €','30k+':'oltre 30.000 €'}[S.importo]||'-'; }
+function riepilogoBreve(){ return labelSituazione()+' · '+labelImporto(); }
+</script>
+</body>
+</html>
